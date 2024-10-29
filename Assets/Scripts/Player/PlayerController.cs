@@ -9,8 +9,11 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed;
     public float jumpPower;
+    public float boostVal;
+    public float boostDuration;
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
+    private float orginMoveSpeed;
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -22,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public bool canLook = true;
 
     public Action inventory;
+    public Action enviroments;
     private Rigidbody rb;
 
     private void Awake()
@@ -33,6 +37,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        orginMoveSpeed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -90,6 +95,35 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
         }
     }
+    //=======================================Q1°úÁ¦=================================
+    public void OnEnv(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Started)
+        {
+            enviroments?.Invoke();
+            ToggleCursor();
+        }
+    }
+
+    public void OnBoost(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Started)
+        {
+            if (moveSpeed <= orginMoveSpeed)
+                StartCoroutine(Boost());
+        }
+    }
+
+    public IEnumerator Boost()
+    {
+        if(rb.velocity != Vector3.zero)
+        {
+            moveSpeed *= boostVal;
+            yield return new WaitForSeconds(boostDuration);
+            moveSpeed /= boostVal; 
+        }
+    }
+    //=============================================================================
 
     public bool IsGround()
     {
