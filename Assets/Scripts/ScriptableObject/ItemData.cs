@@ -27,11 +27,13 @@ public class ItemDataConsumable
 public class ItemData : ScriptableObject
 {
     [Header("info")]
+    public int id;
     public string displayName;
     public string description;
     public ItemType type;
     public Sprite icon;
     public GameObject dropPrefab;
+    public GameObject itemMesh;
 
     [Header("Stacking")]
     public bool canStack;

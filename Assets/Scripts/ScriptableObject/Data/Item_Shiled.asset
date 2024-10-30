@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c1dc6dcdc07e14196d5adcca8dce88, type: 3}
   m_Name: Item_Shiled
   m_EditorClassIdentifier: 
+  id: 5
   displayName: 
   description: 
   type: 0

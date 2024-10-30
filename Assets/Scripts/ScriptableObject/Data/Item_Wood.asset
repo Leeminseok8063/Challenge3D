@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c1dc6dcdc07e14196d5adcca8dce88, type: 3}
   m_Name: Item_Wood
   m_EditorClassIdentifier: 
+  id: 7
   displayName: "\uB098\uBB34"
   description: "\uCC44\uCDE8 \uD55C \uB098\uBB34"
   type: 2
@@ -20,3 +21,4 @@ MonoBehaviour:
   canStack: 1
   maxStackAmount: 12
   consumables: []
+  equipPrefab: {fileID: 0}

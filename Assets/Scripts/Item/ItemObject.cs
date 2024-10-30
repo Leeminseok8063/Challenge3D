@@ -1,10 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public interface IInteractable
 {
-    public string GetInteractPrompt();
     public void OnInteract();
 
 }
@@ -12,13 +12,14 @@ public interface IInteractable
 public class ItemObject : MonoBehaviour, IInteractable
 {
     public ItemData data;
+    public event Action<string> InitPrompt;
 
-    public string GetInteractPrompt()
+    public void Init()
     {
         string str = $"{data.displayName}\n{data.description}";
-        return str;
+        InitPrompt?.Invoke(str);
     }
-
+   
     public void OnInteract()
     {
         CharacterManager.Instance.Player.itemData = data;

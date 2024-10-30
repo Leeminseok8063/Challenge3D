@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c1dc6dcdc07e14196d5adcca8dce88, type: 3}
   m_Name: Item_Ax
   m_EditorClassIdentifier: 
+  id: 1
   displayName: "\uB3C4\uB07C"
   description: "\uC790\uC6D0\uC744 \uCC44\uCDE8\uD560\uB54C \uC0AC\uC6A9\uD560\uAC70\uC784"
   type: 0

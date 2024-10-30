@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,15 +13,16 @@ public class Interaction : MonoBehaviour
 
     public GameObject curInteractGameObjact;
     private IInteractable interactable;
-    
 
     public TextMeshProUGUI promptText;
     private Camera camera;
+
 
     // Start is called before the first frame update
     void Start()
     {
         camera = Camera.main;
+        promptText = SceneLoader.Instance.uiModule.TextPromptObject.GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -38,7 +40,8 @@ public class Interaction : MonoBehaviour
                 {
                     curInteractGameObjact = hit.collider.gameObject;
                     interactable = curInteractGameObjact.GetComponent<IInteractable>();
-                    SetPromptText();
+                    curInteractGameObjact.GetComponent<ItemObject>().InitPrompt += SetPromptText;
+                    curInteractGameObjact.GetComponent<ItemObject>().Init();
                 }
             }
             else
@@ -48,15 +51,13 @@ public class Interaction : MonoBehaviour
                 promptText.gameObject.SetActive(false);
 
             }
-        }
-
-       
+        }    
     }
 
-    private void SetPromptText()
+    private void SetPromptText(string str)
     {
         promptText.gameObject.SetActive(true);
-        promptText.text = interactable.GetInteractPrompt();
+        promptText.text = str;
     }
 
     public void OnInteractInput(InputAction.CallbackContext context)
