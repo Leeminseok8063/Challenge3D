@@ -8,12 +8,18 @@ public interface IDamagable
     void TakeDamage(int damage);
 }
 
-public class PlayerCondition : MonoBehaviour, IDamagable
+public interface IHeal
+{
+    void Heal(float amount);
+}
+
+public class PlayerCondition : MonoBehaviour, IDamagable, IHeal
 {
     public UICondition uICondition;
     Condition health    { get { return uICondition.health; } }
     Condition hunger    { get { return uICondition.hunger; } }
     Condition stamina   { get { return uICondition.stamina; } }
+    Condition shiled    { get { return uICondition.shield; } }
 
     public float noHungerHealthDecay;
     public event Action onTakeDamage;
@@ -52,7 +58,15 @@ public class PlayerCondition : MonoBehaviour, IDamagable
 
     public void TakeDamage(int damage)
     {
-        health.Subtract(damage);
+        if(shiled.curValue > 0)
+        {
+            shiled.Subtract(damage);
+        }
+        else
+        {
+            health.Subtract(damage);
+        }
+
         onTakeDamage?.Invoke();
     }
 
@@ -66,4 +80,6 @@ public class PlayerCondition : MonoBehaviour, IDamagable
         stamina.Subtract(amount);
         return true;
     }
+
+   
 }
